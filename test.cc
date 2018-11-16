@@ -1,6 +1,16 @@
 #include <iostream>
 #include <fstream>
 #include <regex>
+#include <map>
+#include <set>
+
+typedef std::function<bool(std::pair<std::string, unsigned int>, std::pair<std::string, unsigned int>)> Comparator;
+
+Comparator compFunctor =
+  [](std::pair<std::string, unsigned int> e1 ,std::pair<std::string, unsigned int> e2)
+{
+  return e1.second < e2.second;
+};
 
 int main(int argc, char const *argv[])
 {
@@ -22,6 +32,8 @@ int main(int argc, char const *argv[])
   std::string line;
   std::regex re("[a-zA-Z0-9\\.]+");
   std::smatch match;
+  std::map<std::string, unsigned int> dict;
+  
   while (getline(input_file, line))
     {
       //std::cout << line << std::endl;
@@ -29,11 +41,26 @@ int main(int argc, char const *argv[])
 	{
 	  for (auto x:match)
 	    {
-	      std::cout << x << std::endl;
+	      //	      std::cout << x << std::endl;
+	      //std::cout << dict[x] << std::endl;
+	      unsigned int current_count = dict[x];
+	      dict[x] = current_count + 1;
 	    }
 	  line = match.suffix().str();
 	}
     }
 
+  /*
+  for (auto idx : dict)
+    {
+      std::cout << idx.first << " " << idx.second << std::endl;
+      }*/
+  
+  std::set<std::pair<std::string, unsigned int>, Comparator> setOfWords(dict.begin(), dict.end(), compFunctor);
+  for (auto idx : setOfWords)
+    {
+            std::cout << idx.first << " " << idx.second << std::endl;
+    }
+  
   input_file.close();
 }
