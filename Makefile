@@ -1,4 +1,8 @@
-SRC = main.cc
+SRC = 	main.cc \
+	wordcounter.cc
 
 all : $(SRC)
-	clang++ -Weverything -Wno-c++98-compat $(SRC)
+	clang++ -ggdb -Weverything -Wno-c++98-compat $(SRC)
+
+clean :
+	rm -f *~ a.out
