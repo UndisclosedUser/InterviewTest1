@@ -12,13 +12,13 @@ int main(int argc, char const* argv[])
     wc.ParseWords(std::regex("[a-zA-Z0-9\\.]+"));
     wc.FillSet();
 
-    // get most used word
+    // Get the most used word
     std::cout << "Most used word : " << wc.GetWordAtIndex(0u) << std::endl;
-    
-    // get 25th most used word
+
+    // Get the 25th most used word
     std::cout << "25th most used word : " << wc.GetWordAtIndex(24u) << std::endl;
-    
-    // get number of occurences of one word (example taken here : species).
+
+    // Get the number of occurences of a specific word (example taken here : species).
     std::string WordWeWant("species");
     std::cout << "Number of occurences of the word " << WordWeWant << " : " << wc.GetWordCount(WordWeWant) << std::endl;
 }

@@ -14,10 +14,10 @@ class WordCounter
 public:
     WordCounter(char const* input_filename);
     ~WordCounter();
-    void        ParseWords(std::regex re);
-    void        FillSet();
-    std::string GetWordAtIndex(unsigned int index);
-  unsigned int GetWordCount(std::string word);
+    void         ParseWords(std::regex re);
+    void         FillSet();
+    std::string  GetWordAtIndex(unsigned int index);
+    unsigned int GetWordCount(std::string word);
 
 private:
     std::ifstream                                              input_file;
