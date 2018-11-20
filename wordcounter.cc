@@ -2,7 +2,7 @@
 
 Comparator const WordCounter::compFunctor =
 [](std::pair<std::string, unsigned int> e1, std::pair<std::string, unsigned int> e2) {
-    return e1.second < e2.second;
+    return e1.second > e2.second;
 };
 
 WordCounter::WordCounter(char const* input_filename)
@@ -49,9 +49,30 @@ void WordCounter::FillSet()
     for (auto idx : setOfWords)
     {
         std::cout << idx.first << " " << idx.second << std::endl;
-    }
+    }    
 }
 
 std::string WordCounter::GetWordAtIndex(unsigned int index)
 {
+  std::string result("No string found at index");
+  unsigned int counter = 0u;
+  
+  for (auto idx : setOfWords)
+    {
+      if (counter == index)
+	{
+	  result = idx.first;
+	  break;
+	}
+      else
+	{
+	  counter++;
+	}
+    }
+  return result;
+}
+
+unsigned int WordCounter::GetWordCount(std::string word)
+{
+  return dict[word];
 }

@@ -17,6 +17,7 @@ public:
     void        ParseWords(std::regex re);
     void        FillSet();
     std::string GetWordAtIndex(unsigned int index);
+  unsigned int GetWordCount(std::string word);
 
 private:
     std::ifstream                                              input_file;
