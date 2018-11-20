@@ -45,34 +45,35 @@ void WordCounter::ParseWords(std::regex re)
 void WordCounter::FillSet()
 {
     setOfWords = std::set<std::pair<std::string, unsigned int>, Comparator>(dict.begin(), dict.end(), compFunctor);
-
+    /*
     for (auto idx : setOfWords)
     {
         std::cout << idx.first << " " << idx.second << std::endl;
-    }    
+    }
+    */
 }
 
 std::string WordCounter::GetWordAtIndex(unsigned int index)
 {
-  std::string result("No string found at index");
-  unsigned int counter = 0u;
-  
-  for (auto idx : setOfWords)
+    std::string  result("No string found at index");
+    unsigned int counter = 0u;
+
+    for (auto idx : setOfWords)
     {
-      if (counter == index)
-	{
-	  result = idx.first;
-	  break;
-	}
-      else
-	{
-	  counter++;
-	}
+        if (counter == index)
+        {
+            result = idx.first;
+            break;
+        }
+        else
+        {
+            counter++;
+        }
     }
-  return result;
+    return result;
 }
 
 unsigned int WordCounter::GetWordCount(std::string word)
 {
-  return dict[word];
+    return dict[word];
 }
