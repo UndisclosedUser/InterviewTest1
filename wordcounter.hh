@@ -23,7 +23,6 @@ private:
     std::ifstream                                              input_file;
     std::map<std::string, unsigned int>                        dict;
     std::set<std::pair<std::string, unsigned int>, Comparator> setOfWords;
-    static const Comparator                                    compFunctor;
 };
 
 #endif // WORD_COUNTER_HH

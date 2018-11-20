@@ -1,10 +1,5 @@
 #include "wordcounter.hh"
 
-Comparator const WordCounter::compFunctor =
-[](std::pair<std::string, unsigned int> e1, std::pair<std::string, unsigned int> e2) {
-    return e1.second > e2.second;
-};
-
 WordCounter::WordCounter(char const* input_filename)
 {
     input_file = std::ifstream(input_filename);
@@ -44,6 +39,11 @@ void WordCounter::ParseWords(std::regex re)
 
 void WordCounter::FillSet()
 {
+    Comparator compFunctor =
+    [](std::pair<std::string, unsigned int> e1, std::pair<std::string, unsigned int> e2) {
+        return e1.second > e2.second;
+    };
+
     setOfWords = std::set<std::pair<std::string, unsigned int>, Comparator>(dict.begin(), dict.end(), compFunctor);
     /*
     for (auto idx : setOfWords)
