@@ -1,8 +1,14 @@
-SRC = 	main.cc \
-	wordcounter.cc
+SRC      = main.cc \
+	   wordcounter.cc
+OBJ      = $(SRC:.cc=.o)
+BIN      = a.out
+CXX      = clang++
+CXXFLAGS = -ggdb -Weverything -Wno-c++98-compat
 
-all : $(SRC)
-	clang++ -ggdb -Weverything -Wno-c++98-compat $(SRC)
+all    : $(BIN)
 
-clean :
-	rm -f *~ a.out
+$(BIN) : $(OBJ)
+	 $(CXX) $(CXXFLAGS) $(OBJ) -o $(BIN)
+
+clean  :
+	rm -f $(OBJ) $(BIN) *~
