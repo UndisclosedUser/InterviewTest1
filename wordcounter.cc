@@ -25,10 +25,12 @@ bool WordCounter::WordIsPrecededBySpace(std::smatch match, std::string line)
 {
     bool retVal = false;
 
-    auto position = match.position(0);
-    if (position > 0) // beginning of line
+    auto position = match.position(0); // TODO should be size_t according to the documentation, but is not for some reason.
+    if (position > 0)                  // beginning of line
     {
-        if (line[position - 1] == ' ')
+        static_assert(sizeof(size_t) >= sizeof(position), "destination type too small");
+        size_t pos = static_cast<size_t>(position);
+        if (line[pos - 1] == ' ')
         {
             retVal = true;
         }
@@ -41,9 +43,11 @@ bool WordCounter::WordIsFollowedBySpace(std::smatch match, std::string line)
     bool retVal = false;
 
     auto position = match.position(0);
-    if ((position + match[0].length()) < line.size()) // end of line
+    static_assert(sizeof(size_t) >= sizeof(position), "destination type too small");
+    size_t pos = static_cast<size_t>(position + match[0].length());
+    if (pos < line.size()) // end of line
     {
-        if (line[position + match[0].length()] == ' ')
+        if (line[pos] == ' ')
         {
             retVal = true;
         }
