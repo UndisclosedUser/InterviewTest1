@@ -3,7 +3,7 @@ SRC      = main.cc \
 OBJ      = $(SRC:.cc=.o)
 BIN      = a.out
 CXX      = clang++
-CXXFLAGS = -ggdb -Weverything -Wno-c++98-compat
+CXXFLAGS = -O0 -std=c++11 -ggdb -Weverything -Wno-c++98-compat
 
 all    : $(BIN)
 

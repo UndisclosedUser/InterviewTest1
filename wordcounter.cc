@@ -15,6 +15,42 @@ WordCounter::~WordCounter()
     input_file.close();
 }
 
+void WordCounter::AddWordToMap(std::string word)
+{
+    unsigned int current_count = dict[word];
+    dict[word]                 = current_count + 1;
+}
+
+bool WordCounter::WordIsPrecededBySpace(std::smatch match, std::string line)
+{
+    bool retVal = false;
+
+    auto position = match.position(0);
+    if (position > 0) // beginning of line
+    {
+        if (line[position - 1] == ' ')
+        {
+            retVal = true;
+        }
+    }
+    return retVal;
+}
+
+bool WordCounter::WordIsFollowedBySpace(std::smatch match, std::string line)
+{
+    bool retVal = false;
+
+    auto position = match.position(0);
+    if ((position + match[0].length()) < line.size()) // end of line
+    {
+        if (line[position + match[0].length()] == ' ')
+        {
+            retVal = true;
+        }
+    }
+    return retVal;
+}
+
 void WordCounter::ParseWords(std::regex re)
 {
     std::string line;
@@ -22,15 +58,11 @@ void WordCounter::ParseWords(std::regex re)
 
     while (getline(input_file, line))
     {
-        //std::cout << line << std::endl;
         while (std::regex_search(line, match, re))
         {
-            for (auto x : match)
+            if (WordIsPrecededBySpace(match, line) && WordIsFollowedBySpace(match, line))
             {
-                //	      std::cout << x << std::endl;
-                //std::cout << dict[x] << std::endl;
-                unsigned int current_count = dict[x];
-                dict[x]                    = current_count + 1;
+                AddWordToMap(match[0]); // no grouping in RE
             }
             line = match.suffix().str();
         }

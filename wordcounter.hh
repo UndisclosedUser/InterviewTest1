@@ -20,6 +20,10 @@ public:
     unsigned int GetWordCount(std::string word);
 
 private:
+    bool WordIsPrecededBySpace(std::smatch match, std::string line);
+    bool WordIsFollowedBySpace(std::smatch match, std::string line);
+    void AddWordToMap(std::string word);
+
     std::ifstream                                     input_file;
     std::map<std::string, unsigned int>               dict;
     std::vector<std::pair<std::string, unsigned int>> vectorOfWords;
