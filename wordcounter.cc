@@ -6,7 +6,7 @@ WordCounter::WordCounter(char const* input_filename)
     if (!input_file.is_open())
     {
         std::cout << "Could not open file : \"" << input_filename << "\"" << std::endl;
-        exit(2);
+        exit(2); // TODO bad of course.
     }
 }
 
@@ -37,16 +37,17 @@ void WordCounter::ParseWords(std::regex re)
     }
 }
 
-void WordCounter::FillSet()
+void WordCounter::FillVector()
 {
     Comparator compFunctor =
     [](std::pair<std::string, unsigned int> e1, std::pair<std::string, unsigned int> e2) {
         return e1.second > e2.second;
     };
 
-    setOfWords = std::set<std::pair<std::string, unsigned int>, Comparator>(dict.begin(), dict.end(), compFunctor);
+    vectorOfWords = std::vector<std::pair<std::string, unsigned int>>(dict.begin(), dict.end());
+    sort(vectorOfWords.begin(), vectorOfWords.end(), compFunctor);
     /*
-    for (auto idx : setOfWords)
+    for (auto idx : vectorOfWords)
     {
         std::cout << idx.first << " " << idx.second << std::endl;
     }
@@ -55,22 +56,7 @@ void WordCounter::FillSet()
 
 std::string WordCounter::GetWordAtIndex(unsigned int index)
 {
-    std::string  result("No string found at index");
-    unsigned int counter = 0u;
-
-    for (auto idx : setOfWords)
-    {
-        if (counter == index)
-        {
-            result = idx.first;
-            break;
-        }
-        else
-        {
-            counter++;
-        }
-    }
-    return result;
+    return vectorOfWords[index].first;
 }
 
 unsigned int WordCounter::GetWordCount(std::string word)

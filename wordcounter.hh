@@ -15,14 +15,14 @@ public:
     WordCounter(char const* input_filename);
     ~WordCounter();
     void         ParseWords(std::regex re);
-    void         FillSet();
+    void         FillVector();
     std::string  GetWordAtIndex(unsigned int index);
     unsigned int GetWordCount(std::string word);
 
 private:
-    std::ifstream                                              input_file;
-    std::map<std::string, unsigned int>                        dict;
-    std::set<std::pair<std::string, unsigned int>, Comparator> setOfWords;
+    std::ifstream                                     input_file;
+    std::map<std::string, unsigned int>               dict;
+    std::vector<std::pair<std::string, unsigned int>> vectorOfWords;
 };
 
 #endif // WORD_COUNTER_HH

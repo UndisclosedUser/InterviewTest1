@@ -1,3 +1,2 @@
 1. Add a dependency on the header(s) in the makefile.
 2. Check that every word is preceded and followed by a whitespace.
-3. Replace the set by a vector for lookup efficiency ?

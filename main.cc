@@ -10,7 +10,7 @@ int main(int argc, char const* argv[])
 
     WordCounter wc(argv[1]);
     wc.ParseWords(std::regex("[a-zA-Z0-9\\.]+"));
-    wc.FillSet();
+    wc.FillVector();
 
     // Get the most used word
     std::cout << "Most used word : " << wc.GetWordAtIndex(0u) << std::endl;
