@@ -5,7 +5,9 @@
 #include <fstream>
 #include <string>
 #include <regex>
-#include <set>
+#include <map>
+#include <vector>
+#include <functional>
 
 typedef std::function<bool(std::pair<std::string, unsigned int>, std::pair<std::string, unsigned int>)> Comparator;
 
