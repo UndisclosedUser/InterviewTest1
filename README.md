@@ -5,7 +5,10 @@ The idea was (as I remember it, some details could be wrong) to open a text file
 - What is the 25th most frequently used word ?
 - What is the number of occurences of a specific word (which I don't remember, so I took "species" as an example) ?
 
-Caveat : a word is defined by the regular expression [a-zA-z0-9\\.], preceded and followed by a whitespace.
+Caveats :
+- a word is defined as a sequence of one or more character(s).
+- a character is defined by the regular expression "[a-zA-Z0-9\\.]".
+- a word is preceded and followed by a whitespace.
 
 A shell one-liner can surely answer these questions, for instance this (adding tail or grep at the end to answer the specific questions) :  
 ```

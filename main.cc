@@ -21,4 +21,6 @@ int main(int argc, char const* argv[])
     // Get the number of occurences of a specific word (example taken here : species).
     std::string WordWeWant("species");
     std::cout << "Number of occurences of the word " << WordWeWant << " : " << wc.GetWordCount(WordWeWant) << std::endl;
+
+    exit(0);
 }

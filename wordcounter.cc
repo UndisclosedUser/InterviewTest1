@@ -6,7 +6,6 @@ WordCounter::WordCounter(char const* input_filename)
     if (!input_file.is_open())
     {
         std::cout << "Could not open file : \"" << input_filename << "\"" << std::endl;
-        exit(2); // TODO bad of course.
     }
 }
 
@@ -92,7 +91,11 @@ void WordCounter::FillVector()
 
 std::string WordCounter::GetWordAtIndex(unsigned int index)
 {
-    return vectorOfWords[index].first;
+    if (index < vectorOfWords.size())
+    {
+        return vectorOfWords[index].first;
+    }
+    return "No string found at index";
 }
 
 unsigned int WordCounter::GetWordCount(std::string word)
