@@ -16,11 +16,11 @@ WordCounter::~WordCounter()
 
 void WordCounter::AddWordToMap(std::string word)
 {
-    unsigned int current_count = dict[word];
-    dict[word]                 = current_count + 1;
+    unsigned int const current_count = dict[word];
+    dict[word]                       = current_count + 1;
 }
 
-bool WordCounter::WordIsPrecededBySpace(std::smatch match, std::string line)
+bool WordCounter::WordIsPrecededBySpace(std::smatch& match, std::string& line) const
 {
     bool retVal = false;
 
@@ -28,7 +28,7 @@ bool WordCounter::WordIsPrecededBySpace(std::smatch match, std::string line)
     if (position > 0)                  // beginning of line
     {
         static_assert(sizeof(size_t) >= sizeof(position), "destination type too small");
-        size_t pos = static_cast<size_t>(position);
+        size_t const pos = static_cast<size_t>(position);
         if (line[pos - 1] == ' ')
         {
             retVal = true;
@@ -37,13 +37,13 @@ bool WordCounter::WordIsPrecededBySpace(std::smatch match, std::string line)
     return retVal;
 }
 
-bool WordCounter::WordIsFollowedBySpace(std::smatch match, std::string line)
+bool WordCounter::WordIsFollowedBySpace(std::smatch& match, std::string& line) const
 {
     bool retVal = false;
 
     auto position = match.position(0);
     static_assert(sizeof(size_t) >= sizeof(position), "destination type too small");
-    size_t pos = static_cast<size_t>(position + match[0].length());
+    size_t const pos = static_cast<size_t>(position + match[0].length());
     if (pos < line.size()) // end of line
     {
         if (line[pos] == ' ')
@@ -74,7 +74,7 @@ void WordCounter::ParseWords(std::regex re)
 
 void WordCounter::FillVector()
 {
-    Comparator compFunctor =
+    Comparator const compFunctor =
     [](std::pair<std::string, unsigned int> e1, std::pair<std::string, unsigned int> e2) {
         return e1.second > e2.second;
     };
@@ -89,7 +89,7 @@ void WordCounter::FillVector()
     */
 }
 
-std::string WordCounter::GetWordAtIndex(unsigned int index)
+std::string WordCounter::GetWordAtIndex(unsigned int const index) const
 {
     if (index < vectorOfWords.size())
     {
@@ -98,7 +98,7 @@ std::string WordCounter::GetWordAtIndex(unsigned int index)
     return "No string found at index";
 }
 
-unsigned int WordCounter::GetWordCount(std::string word)
+unsigned int WordCounter::GetWordCount(std::string& word)
 {
     return dict[word];
 }

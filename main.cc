@@ -4,7 +4,7 @@ int main(int argc, char const* argv[])
 {
     if (argc != 2)
     {
-        std::cout << "Usage : test text_file" << std::endl;
+        std::cout << "Usage : ./a.out text_file" << std::endl;
         exit(1);
     }
 
