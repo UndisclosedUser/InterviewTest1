@@ -1,4 +1,5 @@
 #include "wordcounter.hh"
+#include "safercast.hh"
 
 WordCounter::WordCounter(char const* input_filename)
 {
@@ -27,8 +28,7 @@ bool WordCounter::WordIsPrecededBySpace(std::smatch& match, std::string& line) c
     auto position = match.position(0); // TODO should be size_t according to the documentation, but is not for some reason.
     if (position > 0)                  // beginning of line
     {
-        static_assert(sizeof(size_t) >= sizeof(position), "destination type too small");
-        size_t const pos = static_cast<size_t>(position);
+        size_t const pos = Diff_tToSize_t(position);
         if (line[pos - 1] == ' ')
         {
             retVal = true;
@@ -41,9 +41,8 @@ bool WordCounter::WordIsFollowedBySpace(std::smatch& match, std::string& line) c
 {
     bool retVal = false;
 
-    auto position = match.position(0);
-    static_assert(sizeof(size_t) >= sizeof(position), "destination type too small");
-    size_t const pos = static_cast<size_t>(position + match[0].length());
+    auto         position = match.position(0);
+    size_t const pos      = Diff_tToSize_t(position + match[0].length());
     if (pos < line.size()) // end of line
     {
         if (line[pos] == ' ')
